@@ -3,7 +3,7 @@ package SlideShow;
 use strict;
 use vars qw($VERSION @ISA);
 
-$VERSION = '2.0';
+$VERSION = '2.0_02';
 
 @SlideShow::ISA = qw(HTML::Parser);
 
@@ -11,6 +11,10 @@ use CGI qw/:standard/;
 use LWP::UserAgent;
 use HTML::Parser;
 use URI::Escape;
+
+BEGIN {
+  $SlideShow::last_marker = '<!-- last-SlideShow-slide -->';
+}
 
 sub new {
   my $class = shift;
@@ -50,7 +54,6 @@ sub new {
 
   $self->{ua} = new LWP::UserAgent;
   $self->{ua}->agent("SlideShow/2.0");
-  $SlideShow::last_marker = '<!-- last -->';
 
   $self;
 }
@@ -484,26 +487,44 @@ it a few parameters, such as:
 
 =over 4
 
-=item B<master_cgi> The URL to the master CGI program, wherever
+=item B<master_cgi> 
+
+The URL to the master CGI program, wherever
 you are utting it. [Required].
 
-=item B<view_file> Where to keep the currently-showing pages.
+=item B<view_file> 
 
-=item B<start_title> The title that shows up on the master session
+Where to keep the currently-showing pages.
+
+=item B<start_title> 
+
+The title that shows up on the master session
 at startup.
 
-=item B<url_list> A list of URLs to use as presets to start off
+=item B<url_list> 
+
+A list of URLs to use as presets to start off
 the session with.
 
-=item B<tmp_dir> Where to keep the temporary files.  default is
+=item B<tmp_dir> 
+
+Where to keep the temporary files.  default is
 C</tmp>.
 
-=item B<log_file> Where to put the final log of all pages visited.
+=item B<log_file> 
 
-=item B<commentary> A little message that goes on the master 
+Where to put the final log of all pages visited.
+
+=item B<commentary> 
+
+A little message that goes on the master 
 startup page.  HTML can be included verbatim.
 
+=back
+
 =head1 EXAMPLES
+
+=over 4 
 
 =item for the master session:
 
@@ -529,6 +550,8 @@ prefix 'nph-', such as 'nph-view', to work properly.
 See the included examples, B<slideshow-master> and 
 B<nph-slideshow-viewer>.
 
+=back
+
 =head1 BUGS 
 
 Requires someone or something to lead the session.  
@@ -541,7 +564,7 @@ Kevin A. Lenzo <lenzo@cs.cmu.edu>
 =head1 SEE ALSO
 
 perl(1), L<LWP::UserAgent>, L<HTTP::Request>, 
-L<HTML::Parser>, L<CGI>.
+L<HTML::Parser>, and CGI.pm.
 
 =cut
 

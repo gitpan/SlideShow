@@ -1,4 +1,6 @@
 Revision history for Perl extension SlideShow.
+	
+	- revised the POD somewhat.
 
 2.00  Sat Jan  1 15:30:00 2000
 	Kevin A. Lenzo <lenzo@cs.cmu.edu>
